@@ -6,3 +6,5 @@ class post(models.Model):
         title = models.CharField(max_length=100)
         body = models.CharField(max_length=100000)
         created_date = models.DateTimeField(default=datetime.now, blank=True)
+# class comment(models.Model):
+        

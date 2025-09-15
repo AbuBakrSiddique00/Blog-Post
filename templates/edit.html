@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form method="POST">
+        {% csrf_token %}
+        <h3>Edit Blog Title:</h3>
+        <!-- <input type="text" name="title"/> -->
+        <textarea name="title">{{p.title}}</textarea>
+        <h3>Edit Your Blog:</h3>
+        <!-- <input type="text" name="body"/> -->
+        <!-- <input type="datetime" name="created_date"> -->
+        <textarea name="body" style="width: 400px; height: 400px;">{{p.body}}</textarea> <br>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
