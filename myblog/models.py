@@ -7,4 +7,9 @@ class post(models.Model):
         body = models.CharField(max_length=100000)
         updated_at = models.DateTimeField(auto_now=True)
         created_date = models.DateTimeField(auto_now_add=True)
-# class comment(models.Model):
+
+# database for comment section with foreign  key 
+class comment(models.Model):
+        text = models.CharField(max_length=300)
+        comment_date = models.DateTimeField(auto_now_add=True)
+        pOst = models.ForeignKey(post, on_delete=models.CASCADE)

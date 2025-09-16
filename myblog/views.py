@@ -1,27 +1,36 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.utils import timezone
-from .models import post
+from .models import post, comment
 # Create your views here.
 
 # home page
 def home(request):
     # person.objects.create(name="Alice", age=25, school="Greenwood High")
-    if request.method == 'POST':
+    if request.method == 'POST':  
         # delete post
-            px = request.POST['post_id']
-            obs = post.objects.get(id=px)
-            obs.delete()
-            return redirect('/')
-    
+        px = request.POST['post_id']
+        obs = post.objects.get(id=px)
+        obs.delete()
+        return redirect('/')
     else:
         p = post.objects.all()
         return render(request, 'index.html', {'p' : p})
 
-# indidual posts
+# indidual post
 def pos(request, pk):
-    ps = post.objects.get(id=pk)
-    return render(request, 'post.html', {'p' : ps})
+    if request.method == 'POST':
+        text = request.POST['text']
+        # post_id = request.POST['post_id']
+        p = post.objects.get(id=pk)
+        comment.objects.create(text=text, pOst=p)
+        ps = post.objects.get(id=pk)
+        com = comment.objects.filter(pOst=ps)
+        return render(request, 'post.html', {'p' : ps,'com' : com})
+    else:
+        ps = post.objects.get(id=pk)
+        com = comment.objects.filter(pOst=ps)
+        return render(request, 'post.html', {'p' : ps,'com' : com})
 
 # Create new Post
 def createPost(request):

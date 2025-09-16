@@ -13,11 +13,26 @@
     </header>
     <div style="border: 1px solid black; padding: 10px; border-radius: 5px; box-shadow: 2px 2px;">
         <!-- <a href="#" style="text-decoration: none; color: black;"> -->
-            <h1 style="color:rgb(55, 196, 201) ">{{p.title}}</h1>
-            <h3>{{p.body}}</h3>
-            <h5>{{p.created_date}}</h5>
-        </a>
+        <h1 style="color:rgb(55, 196, 201) ">{{p.title}}</h1>
+        <h3>{{p.body}}</h3>
+        <h5>{{p.created_date}}</h5>
+        <br>
     </div>
+    <br>
+    <form method="POST">
+        {% csrf_token %}
+        <textarea name="text" placeholder="Add your comment"></textarea>
+        <input type="hidden" name="post_id" value="{{ post.id }}"><br>
+        <button type="submit">Submit Comment</button>
+    </form>
+    <br>
+    {% for comment in com reversed %}
+    <div style="border: 1px solid black; padding: 10px; border-radius: 5px; display: inline-block; width: 400px; margin-top: 3px;">
+        <h4>{{comment.text}}</h4>
+        <h5>{{comment.comment_date}}</h5>
+    </div>
+    <br>
+    {% endfor %}
 </body>
 
 </html>
