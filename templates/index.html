@@ -13,29 +13,37 @@
     </header>
     <br>
     <div>
-        <button><a href="{% url 'createPost' %}" style="text-decoration: none; color: black; align-content: end;">New Post + </a></button>
+        <button><a href="{% url 'createPost' %}" style="text-decoration: none; color: black; align-content: end;">New
+                Post + </a></button>
     </div>
     <br>
 
     {% for post in p reversed %}
-        <div style="border: 2px solid black; padding: 10px; border-radius: 5px; display: flex; flex-direction: column; min-height: 200px;">
-            <form method="POST">
-                {% csrf_token %}
-                <input type="hidden" name="post_id" value="{{post.id}}">
-                <button type="submit">Delete</button>
-            </form>
+    <div
+        style="border: 2px solid black; padding: 10px; border-radius: 5px; display: flex; flex-direction: column; min-height: 200px;">
+        
+        <!-- all post  -->
+        <form method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="post_id" value="{{post.id}}">
+            <button type="submit">Delete</button>
+        </form>
+       
+        <!-- display post in dynamic url -->
         <a href="/pos/{{post.id}}" style="text-decoration: none; color: black;">
             <h1 style="text-shadow: 2px 1px; color:black;">{{post.title}}</h1>
             <h3>{{post.body | truncatewords:20}}</h3>
             <h5>{{post.created_date}}</h5>
         </a>
-            <div style="margin-top: auto; align-self: flex-end;">
-                <form method="POST" action="{% url 'editPost' %}">
-                    {% csrf_token %}
-                    <input type="hidden" name="post_id_e" value="{{post.id}}">
-                    <button type="submit">Edit Post</button>
-                </form>
-            </div>
+
+        <!-- Edit post -->
+        <div style="margin-top: auto; align-self: flex-end;">
+            <form method="POST" action="{% url 'editPost' %}">
+                {% csrf_token %}
+                <input type="hidden" name="post_id_e" value="{{post.id}}">
+                <button type="submit">Edit Post</button>
+            </form>
+        </div>
     </div>
     <br>
     {% endfor %}

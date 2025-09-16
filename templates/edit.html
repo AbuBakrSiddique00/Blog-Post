@@ -6,7 +6,7 @@
     <title>Document</title>
 </head>
 <body>
-    <form method="POST">
+    <form method="POST" action="{% url 'submit' p.id %}">
         {% csrf_token %}
         <h3>Edit Blog Title:</h3>
         <!-- <input type="text" name="title"/> -->
@@ -15,7 +15,7 @@
         <!-- <input type="text" name="body"/> -->
         <!-- <input type="datetime" name="created_date"> -->
         <textarea name="body" style="width: 400px; height: 400px;">{{p.body}}</textarea> <br>
-        <button type="submit">Submit</button>
+        <button type="submit">Edit</button>
     </form>
 </body>
 </html>

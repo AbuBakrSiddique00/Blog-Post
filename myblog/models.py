@@ -5,6 +5,6 @@ from datetime import datetime
 class post(models.Model):
         title = models.CharField(max_length=100)
         body = models.CharField(max_length=100000)
-        created_date = models.DateTimeField(default=datetime.now, blank=True)
+        updated_at = models.DateTimeField(auto_now=True)
+        created_date = models.DateTimeField(auto_now_add=True)
 # class comment(models.Model):
-        
