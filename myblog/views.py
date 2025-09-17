@@ -17,15 +17,14 @@ def home(request):
         p = post.objects.all()
         return render(request, 'index.html', {'p' : p})
 
-# indidual post
+# indidual post and comment
 def pos(request, pk):
     if request.method == 'POST':
         text = request.POST['text']
-        # post_id = request.POST['post_id']
-        p = post.objects.get(id=pk)
-        comment.objects.create(text=text, pOst=p)
         ps = post.objects.get(id=pk)
-        com = comment.objects.filter(pOst=ps)
+        comment.objects.create(text=text, pOst=ps)
+        # com = comment.objects.filter(pOst=ps)
+        com = ps.comments.all()
         return render(request, 'post.html', {'p' : ps,'com' : com})
     else:
         ps = post.objects.get(id=pk)
@@ -62,6 +61,7 @@ def submit(request, ps):
           body = request.POST['body']
           p.title = title
           p.body = body
+        #   p.created_date = 
           p.save()
           return redirect('/')
      else:

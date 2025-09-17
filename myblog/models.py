@@ -12,4 +12,5 @@ class post(models.Model):
 class comment(models.Model):
         text = models.CharField(max_length=300)
         comment_date = models.DateTimeField(auto_now_add=True)
-        pOst = models.ForeignKey(post, on_delete=models.CASCADE)
+        pOst = models.ForeignKey(post, on_delete=models.CASCADE, related_name='comments')
+## related name (reverse)

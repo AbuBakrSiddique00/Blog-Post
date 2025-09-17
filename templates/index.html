@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 
 <body>
@@ -21,19 +23,19 @@
     {% for post in p reversed %}
     <div
         style="border: 2px solid black; padding: 10px; border-radius: 5px; display: flex; flex-direction: column; min-height: 200px;">
-        
+
         <!-- all post  -->
         <form method="POST">
             {% csrf_token %}
             <input type="hidden" name="post_id" value="{{post.id}}">
             <button type="submit">Delete</button>
         </form>
-       
+
         <!-- display post in dynamic url -->
         <a href="/pos/{{post.id}}" style="text-decoration: none; color: black;">
             <h1 style="text-shadow: 2px 1px; color:black;">{{post.title}}</h1>
-            <h3>{{post.body | truncatewords:20}}</h3>
-            <h5>{{post.created_date}}</h5>
+            <h6>{{post.updated_at       }}</h6>
+            <h4>{{post.body | truncatewords:20}}</h4>
         </a>
 
         <!-- Edit post -->

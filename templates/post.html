@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog</title>
+     {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 
 <body>
@@ -26,7 +28,7 @@
         <button type="submit">Submit Comment</button>
     </form>
     <br>
-    {% for comment in com reversed %}
+    {% for comment in p.comments.all reversed %}
     <div style="border: 1px solid black; padding: 10px; border-radius: 5px; display: inline-block; width: 400px; margin-top: 3px;">
         <h4>{{comment.text}}</h4>
         <h5>{{comment.comment_date}}</h5>

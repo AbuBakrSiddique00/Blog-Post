@@ -4,14 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+     {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
-    <form method="POST">
+    <form method="POST" style="text-align: center;">
         {% csrf_token %}
         <h3>Blog Title:</h3>
-        <input type="text" name="title"/>
+        <input type="text" name="title" style="width: 200px;" placeholder="Enter blog title"/>
         <h3>Your Blog:</h3>
-        <input type="text" name="body"/>
+        <input type="text" name="body" style="width: 200px; height: 200px;" placeholder="Write down your blog"/><br>
         <!-- <input type="datetime" name="created_date"> -->
         <button type="submit">Submit</button>
     </form>
