@@ -4,6 +4,11 @@ from django.utils import timezone
 from .models import post, comment
 # Create your views here.
 
+
+# demo profile 
+def profile(request):
+     return render(request, 'profile.html')
+
 # home page
 def home(request):
     # person.objects.create(name="Alice", age=25, school="Greenwood High")
@@ -22,7 +27,7 @@ def pos(request, pk):
     if request.method == 'POST':
         text = request.POST['text']
         ps = post.objects.get(id=pk)
-        comment.objects.create(text=text, pOst=ps)
+        comment.objects.create(text=text, pOst=ps, author = request.user)
         # com = comment.objects.filter(pOst=ps)
         com = ps.comments.all()
         return render(request, 'post.html', {'p' : ps,'com' : com})
@@ -37,7 +42,7 @@ def createPost(request):
     if request.method == 'POST':
             title = request.POST['title']
             body = request.POST['body']
-            p = post.objects.create(title=title, body=body, created_date=timezone.now())
+            p = post.objects.create(title=title, body=body, created_date=timezone.now(), author = request.user)
             p.save()
             return redirect('/')
     else:

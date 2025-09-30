@@ -8,4 +8,5 @@ urlpatterns = [
     path('editPost', views.editPost, name='editPost'),
     path('submit/<str:ps>', views.submit, name='submit'),
     path('accounts/', include('allauth.urls')),
+    path('accounts/profile/', views.profile, name='profile')
 ]

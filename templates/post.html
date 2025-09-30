@@ -32,6 +32,7 @@
     <div style="border: 1px solid black; padding: 10px; border-radius: 5px; display: inline-block; width: 400px; margin-top: 3px;">
         <h4>{{comment.text}}</h4>
         <h5>{{comment.comment_date}}</h5>
+        <h5>comment by: {{ comment.author.username }}</h5>
     </div>
     <br>
     {% endfor %}
