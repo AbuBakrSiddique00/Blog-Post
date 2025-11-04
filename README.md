@@ -42,10 +42,6 @@ Describe configuration files, environment variables, and default values. Provide
 - .env.example
 - config.yml
 
-## Testing
-- Unit tests: pytest or relevant test runner
-- Integration tests: how to run and prerequisites
-
 ## Contributing
 Guidelines for contributions:
 - Fork the repo
