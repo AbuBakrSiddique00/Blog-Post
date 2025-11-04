@@ -48,9 +48,3 @@ Guidelines for contributions:
 - Create a feature branch
 - Open a pull request with a clear description and tests
 - Follow the project's code style and commit message conventions
-
-## License
-Specify the license (e.g., MIT, Apache-2.0). Add LICENSE file in repository root.
-
-## Contact
-Provide maintainer or project contact information and links to issue tracker.
