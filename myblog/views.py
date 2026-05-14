@@ -2,14 +2,53 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.utils import timezone
 from .models import post, comment
-# Create your views here.
+from .forms import RegistrationForm
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views import View
+from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+
+# Registration
+class Registration(LoginRequiredMixin, View):
+    def get(self, request):
+          form = RegistrationForm()
+          return render(request, 'registration.html', {'form' : form})
+
+    def post(self, request):
+        form = RegistrationForm(request.POST)
+        # print(form)
+        if form.is_valid():
+            print("Hello")
+            user = form.save()
+            # login(request, user)                 
+            return redirect('login')
+        else:
+            form = RegistrationForm()
+            return render(request, 'registration.html', {'form' : form})
+        
+# Login 
+def MyLoginView(request):
+     if request.method == 'POST':
+          username = request.POST['username']
+          password = request.POST['password']
+          user = authenticate(request, username=username, password=password)
+          if user is not None:
+               login(request, user)
+               return HttpResponse("You are logged in!!")
+          else:
+               messages.error(request, 'Invalid Crediantials!!')
+               return render(request, 'login.html')
+     return render(request, 'login.html')
+     
 
 
-# demo profile 
-def profile(request):
-     return render(request, 'profile.html')
+# Logout
+def logoutView(request):
+     logout(request)
+     return HttpResponse("you are loggged out Now!!")
 
-# home page
+@login_required
 def home(request):
     # person.objects.create(name="Alice", age=25, school="Greenwood High")
     if request.method == 'POST':  
@@ -50,9 +89,9 @@ def createPost(request):
         
 # Edit Post
 def editPost(request):
-    # temo_id = request.POST.get('post_id_e')
+    # temo_id = request.POST.get('post_id_e') ## it is better to use instead of this request.POST['post_id']
     if request.method == 'POST':
-        id = request.POST.get('post_id_e')
+        id = request.POST['post_id_e']
         p = post.objects.get(id=id)
         return render(request, 'edit.html', {'p' : p})
     else:

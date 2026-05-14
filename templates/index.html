@@ -1,54 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'style.css' %}">
-</head>
+{% block title %} Blog {% endblock %}
 
-<body>
-    <header style="text-align: center;">
-        <h1>Tisha's blog</h1>
-    </header>
-    <br>
-    <div>
-        <button><a href="{% url 'createPost' %}" style="text-decoration: none; color: black; align-content: end;">New
-                Post + </a></button>
-    </div>
-    <br>
+{% block body %}
+<header style="text-align: center;">
+    <h1>Tisha's blog</h1>
+    <form action="{% url 'logout' %}">
+        <button
+            class="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-heading rounded-base group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">
+            <span
+                class=" relative px-4 py-2.5 transition-all ease-in duration-75 bg-neutral-primary-soft rounded-base group-hover:bg-transparent group-hover:dark:bg-transparent leading-5">
+                Logout
+            </span>
+        </button>
+    </form>
+</header>
+<br>
+<div>
+    <button><a href="{% url 'createPost' %}" style="text-decoration: none; color: black; align-content: end;">New
+            Post + </a></button>
+</div>
+<br>
 
-    {% for post in p reversed %}
-    <div
-        style="border: 2px solid black; padding: 10px; border-radius: 5px; display: flex; flex-direction: column; min-height: 200px;">
+{% for post in p reversed %}
+<div
+    style="border: 2px solid black; padding: 10px; border-radius: 5px; display: flex; flex-direction: column; min-height: 200px;">
 
-        <!-- all post  -->
-        <form method="POST">
+    <!-- all post  -->
+    <form method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="post_id" value="{{post.id}}">
+        <button type="submit">Delete</button>
+    </form>
+
+    <!-- display post in dynamic url -->
+    <a href="/pos/{{post.id}}" style="text-decoration: none; color: black;">
+        <h1 style="text-shadow: 2px 1px; color:black;">{{post.title}}</h1>
+        <h6>{{post.updated_at}}</h6>
+        <h4>{{post.body | truncatewords:20}}</h4>
+    </a>
+
+    <!-- Edit post -->
+    <div style="margin-top: auto; align-self: flex-end;">
+        <form method="POST" action="{% url 'editPost' %}">
             {% csrf_token %}
-            <input type="hidden" name="post_id" value="{{post.id}}">
-            <button type="submit">Delete</button>
+            <input type="hidden" name="post_id_e" value="{{post.id}}">
+            <button type="submit">Edit Post</button>
         </form>
-
-        <!-- display post in dynamic url -->
-        <a href="/pos/{{post.id}}" style="text-decoration: none; color: black;">
-            <h1 style="text-shadow: 2px 1px; color:black;">{{post.title}}</h1>
-            <h6>{{post.updated_at}}</h6>
-            <h4>{{post.body | truncatewords:20}}</h4>
-        </a>
-
-        <!-- Edit post -->
-        <div style="margin-top: auto; align-self: flex-end;">
-            <form method="POST" action="{% url 'editPost' %}">
-                {% csrf_token %}
-                <input type="hidden" name="post_id_e" value="{{post.id}}">
-                <button type="submit">Edit Post</button>
-            </form>
-        </div>
     </div>
-    <br>
-    {% endfor %}
-</body>
-
-</html>
+</div>
+<br>
+{% endfor %}
+{% endblock %}

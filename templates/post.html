@@ -1,15 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog</title>
-     {% load static %}
-    <link rel="stylesheet" href="{% static 'style.css' %}">
-</head>
+{% block title %} Your Specific post {% endblock %}
 
-<body>
+{% block body %} 
     <header style="text-align: center;">
         <h1>Tisha's blog</h1>
     </header>
@@ -36,6 +29,4 @@
     </div>
     <br>
     {% endfor %}
-</body>
-
-</html>
+{% endblock %}

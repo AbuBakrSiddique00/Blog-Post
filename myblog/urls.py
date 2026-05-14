@@ -7,6 +7,7 @@ urlpatterns = [
     path('createPost', views.createPost, name="createPost"),
     path('editPost', views.editPost, name='editPost'),
     path('submit/<str:ps>', views.submit, name='submit'),
-    path('accounts/', include('allauth.urls')),
-    path('accounts/profile/', views.profile, name='profile')
+    path('register/', views.Registration.as_view(), name='register'),
+    path('login/', views.MyLoginView, name='login'),
+    path('logout/', views.logoutView, name='logout'),
 ]

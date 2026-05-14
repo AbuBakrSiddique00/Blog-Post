@@ -1,13 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-     {% load static %}
-    <link rel="stylesheet" href="{% static 'style.css' %}">
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block title %} New Post {% endblock %}
+
+{% block body %} 
     <form method="POST" style="text-align: center;">
         {% csrf_token %}
         <h3>Blog Title:</h3>
@@ -17,5 +12,4 @@
         <!-- <input type="datetime" name="created_date"> -->
         <button type="submit">Submit</button>
     </form>
-</body>
-</html>
+{% endblock %}
