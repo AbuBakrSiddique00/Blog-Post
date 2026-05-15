@@ -122,3 +122,4 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 ACCOUNT_EMAIL_REQUIRED = True 
 
 LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/'

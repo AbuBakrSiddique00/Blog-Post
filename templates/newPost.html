@@ -3,13 +3,32 @@
 {% block title %} New Post {% endblock %}
 
 {% block body %} 
-    <form method="POST" style="text-align: center;">
-        {% csrf_token %}
-        <h3>Blog Title:</h3>
-        <input type="text" name="title" style="width: 200px;" placeholder="Enter blog title"/>
-        <h3>Your Blog:</h3>
-        <input type="text" name="body" style="width: 200px; height: 200px;" placeholder="Write down your blog"/><br>
-        <!-- <input type="datetime" name="created_date"> -->
-        <button type="submit">Submit</button>
-    </form>
+    <main class="mx-auto max-w-2xl px-4 py-10">
+        <div class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
+            <h1 class="text-xl font-semibold text-slate-900">New Post</h1>
+
+            <form method="POST" class="mt-6 space-y-5">
+                {% csrf_token %}
+
+                <div>
+                    <label class="block text-sm font-medium text-slate-700">Blog Title</label>
+                    <input type="text" name="title" placeholder="Enter blog title"
+                        class="mt-1 w-full rounded-md border-slate-300 shadow-sm focus:border-blue-600 focus:ring-blue-600" />
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-slate-700">Your Blog</label>
+                    <textarea name="body" rows="10" placeholder="Write down your blog"
+                        class="mt-1 w-full rounded-md border-slate-300 shadow-sm focus:border-blue-600 focus:ring-blue-600"></textarea>
+                </div>
+
+                <div class="flex justify-end">
+                    <button type="submit" value="Send Request" 
+                        class="inline-flex items-center rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2">
+                        Submit
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
 {% endblock %}

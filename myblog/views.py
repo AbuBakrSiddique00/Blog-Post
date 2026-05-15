@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 # Registration
-class Registration(LoginRequiredMixin, View):
+class Registration(View):
     def get(self, request):
           form = RegistrationForm()
           return render(request, 'registration.html', {'form' : form})
@@ -35,10 +35,10 @@ def MyLoginView(request):
           user = authenticate(request, username=username, password=password)
           if user is not None:
                login(request, user)
-               return HttpResponse("You are logged in!!")
+               return redirect('home')
           else:
                messages.error(request, 'Invalid Crediantials!!')
-               return render(request, 'login.html')
+               return render(request, 'login.html'  )
      return render(request, 'login.html')
      
 
@@ -46,7 +46,7 @@ def MyLoginView(request):
 # Logout
 def logoutView(request):
      logout(request)
-     return HttpResponse("you are loggged out Now!!")
+     return redirect('login')
 
 @login_required
 def home(request):
@@ -59,9 +59,12 @@ def home(request):
         return redirect('/')
     else:
         p = post.objects.all()
-        return render(request, 'index.html', {'p' : p})
+        user = request.user
+        return render(request, 'index.html', {'p' : p, 'user' : user})
+
 
 # indidual post and comment
+@login_required
 def pos(request, pk):
     if request.method == 'POST':
         text = request.POST['text']
@@ -76,6 +79,7 @@ def pos(request, pk):
         return render(request, 'post.html', {'p' : ps,'com' : com})
 
 # Create new Post
+@login_required
 def createPost(request):
     # print('post')
     if request.method == 'POST':
@@ -88,6 +92,7 @@ def createPost(request):
         return render(request, 'newPost.html')
         
 # Edit Post
+@login_required
 def editPost(request):
     # temo_id = request.POST.get('post_id_e') ## it is better to use instead of this request.POST['post_id']
     if request.method == 'POST':
@@ -98,6 +103,7 @@ def editPost(request):
          return redirect('/')
     
 # submit edited post
+@login_required     
 def submit(request, ps):
      if request.method == 'POST':
           p = post.objects.get(id=ps)

@@ -3,15 +3,32 @@
 {% block title %} Edit Page {% endblock %}
 
 {% block body %} 
-    <form method="POST" action="{% url 'submit' p.id %}">
-        {% csrf_token %}
-        <h3>Edit Blog Title:</h3>
-        <!-- <input type="text" name="title"/> -->
-        <textarea name="title">{{p.title}}</textarea>
-        <h3>Edit Your Blog:</h3>
-        <!-- <input type="text" name="body"/> -->
-        <!-- <input type="datetime" name="created_date"> -->
-        <textarea name="body" style="width: 400px; height: 400px;">{{p.body}}</textarea> <br>
-        <button type="submit">Edit</button>
-    </form>
+    <main class="mx-auto max-w-2xl px-4 py-10">
+        <div class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
+            <h1 class="text-xl font-semibold text-slate-900">Edit Post</h1>
+
+            <form method="POST" action="{% url 'submit' p.id %}" class="mt-6 space-y-5">
+                {% csrf_token %}
+
+                <div>
+                    <label class="block text-sm font-medium text-slate-700">Title</label>
+                    <textarea name="title" rows="2"
+                        class="mt-1 w-full rounded-md border-slate-300 shadow-sm focus:border-blue-600 focus:ring-blue-600">{{p.title}}</textarea>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-slate-700">Body</label>
+                    <textarea name="body" rows="12"
+                        class="mt-1 w-full rounded-md border-slate-300 shadow-sm focus:border-blue-600 focus:ring-blue-600">{{p.body}}</textarea>
+                </div>
+
+                <div class="flex justify-end">
+                    <button type="submit" value="Send Request" 
+                        class="inline-flex items-center rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2">
+                        Save Changes
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
 {% endblock %}
